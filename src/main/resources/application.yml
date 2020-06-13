@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    test1:
+      username: root
+      password:
+      jdbc-url: jdbc:mysql://localhost:3306/test?serverTimezone=UTC
+      driver-class-name: com.mysql.jdbc.Driver
+    test2:
+      username: root
+      password:
+      jdbc-url: jdbc:mysql://localhost:3306/test2?serverTimezone=UTC
+      driver-class-name: com.mysql.jdbc.Driver
+
+
+#mybatis:
+#  mapper-locations: classpath:mapper/*.xml
