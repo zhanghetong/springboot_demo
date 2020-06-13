@@ -11,6 +11,11 @@ spring:
       jdbc-url: jdbc:mysql://localhost:3306/test2?serverTimezone=UTC
       driver-class-name: com.mysql.jdbc.Driver
 
+  redis:
+    host: localhost
+    port: 6379
+
+
 
 #mybatis:
 #  mapper-locations: classpath:mapper/*.xml
