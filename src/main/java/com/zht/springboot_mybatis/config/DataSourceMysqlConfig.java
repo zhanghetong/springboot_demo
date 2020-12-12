@@ -3,6 +3,7 @@ package com.zht.springboot_mybatis.config;
 
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -37,6 +38,11 @@ public class DataSourceMysqlConfig {
         return sessionFactory.getObject();
     }
 
+    @Bean(name = "test1SqlSessionTemplate")
+    public SqlSessionTemplate test1SqlSessionTemplate(@Qualifier("test1SqlSessionFactory") SqlSessionFactory sqlSessionFactory){
+        return new SqlSessionTemplate(sqlSessionFactory);
+    }
+
     @Bean(name = "test1TransactionManager")
     public DataSourceTransactionManager test1TransactionManager(@Qualifier("test1DataSource") DataSource test1DataSource) {
         return new DataSourceTransactionManager(test1DataSource);
@@ -60,6 +66,11 @@ public class DataSourceMysqlConfig {
         sessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver()
                 .getResources(DataSourceMysqlConfig.MAPPER_LOCATION2));
         return sessionFactory.getObject();
+    }
+
+    @Bean(name = "test2SqlSessionTemplate")
+    public SqlSessionTemplate test2SqlSessionTemplate(@Qualifier("test2SqlSessionFactory") SqlSessionFactory sqlSessionFactory){
+        return new SqlSessionTemplate(sqlSessionFactory);
     }
 
     @Bean(name = "test2TransactionManager")
