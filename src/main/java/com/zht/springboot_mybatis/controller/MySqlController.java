@@ -12,18 +12,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 
 @Controller
-public class MyController {
+public class MySqlController {
     @Autowired
     ITestServie itestsServie;
-
-    @Resource
-    RedisUtil redisUtil;
-
-    @RequestMapping(path = "/testa")
-    @ResponseBody
-    public String testa(){
-        return "aa";
-    }
 
     @RequestMapping(path = "/creatUser")
     @ResponseBody
@@ -65,19 +56,5 @@ public class MyController {
     @ResponseBody
     public String getUser2(@RequestParam int id){
         return itestsServie.getUserInfo2(id).toString();
-    }
-
-    @RequestMapping(path = "/getRedis")
-    @ResponseBody
-    public String getRedis(@RequestParam String key){
-        String res = (String) redisUtil.get(key);
-        return res;
-    }
-
-    @RequestMapping(path = "/setRedis")
-    @ResponseBody
-    public String setRedis(@RequestParam String key, @RequestParam String value){
-        boolean ok = redisUtil.set(key,value);
-        return "success";
     }
 }
