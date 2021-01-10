@@ -30,7 +30,9 @@ public class TestServiceImpl implements ITestServie {
 
     @Override
     public void createUserInfo(int id, String name) {
-        testMapper.createUser(new User(id,name));
+//        User user = User.builder().id(id).name(name).build();
+        User user = new User(id,name);
+        testMapper.createUser(user);
     }
 
     @Override
