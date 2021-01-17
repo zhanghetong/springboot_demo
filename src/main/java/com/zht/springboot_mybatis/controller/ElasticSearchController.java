@@ -44,7 +44,7 @@ public class ElasticSearchController {
     public String searchData() throws Exception{
         SearchRequest searchRequest = new SearchRequest("estest");
         SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
-        TermQueryBuilder termQueryBuilder = QueryBuilders.termQuery("name","张");
+        TermQueryBuilder termQueryBuilder = QueryBuilders.termQuery("name.keyword","张三");
         sourceBuilder.query(termQueryBuilder);
         searchRequest.source(sourceBuilder);
 
