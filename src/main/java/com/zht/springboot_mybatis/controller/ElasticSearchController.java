@@ -31,7 +31,7 @@ public class ElasticSearchController {
 
     @PostMapping("/saveEsData")
     public String saveEsData() throws Exception{
-        User2 user2 = new User2("法外狂徒张三",88);
+        User2 user2 = User2.builder().name("法外狂徒张三").age(88).build();
 
         IndexRequest request = new IndexRequest("estest");
         request.source(JSON.toJSONString(user2), XContentType.JSON);
