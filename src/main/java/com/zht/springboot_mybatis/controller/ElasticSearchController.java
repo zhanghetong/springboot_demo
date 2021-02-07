@@ -16,12 +16,14 @@ import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.common.xcontent.XContentType;
+import org.elasticsearch.index.query.MatchQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.query.TermQueryBuilder;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -30,9 +32,7 @@ public class ElasticSearchController {
     private RestHighLevelClient restHighLevelClient;
 
     @PostMapping("/saveEsData")
-    public String saveEsData() throws Exception{
-        User2 user2 = User2.builder().name("法外狂徒张三").age(88).build();
-
+    public String saveEsData(@RequestBody User2 user2) throws Exception{
         IndexRequest request = new IndexRequest("estest");
         request.source(JSON.toJSONString(user2), XContentType.JSON);
         IndexResponse indexResponse = restHighLevelClient.index(request, RequestOptions.DEFAULT);
@@ -44,8 +44,9 @@ public class ElasticSearchController {
     public String searchData() throws Exception{
         SearchRequest searchRequest = new SearchRequest("estest");
         SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
-        TermQueryBuilder termQueryBuilder = QueryBuilders.termQuery("name.keyword","张三");
-        sourceBuilder.query(termQueryBuilder);
+//        TermQueryBuilder queryBuilder = QueryBuilders.termQuery("name.keyword","张三");
+        MatchQueryBuilder queryBuilder = QueryBuilders.matchQuery("name","张三");
+        sourceBuilder.query(queryBuilder);
         searchRequest.source(sourceBuilder);
 
         SearchResponse searchResponse = restHighLevelClient.search(searchRequest, RequestOptions.DEFAULT);
