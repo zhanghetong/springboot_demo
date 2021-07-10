@@ -56,6 +56,5 @@ public class MySqlController {
     @ResponseBody
     public String getUser2(@RequestParam int id){
         return itestsServie.getUserInfo2(id).toString();
-        
     }
 }
